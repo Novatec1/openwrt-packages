@@ -18,7 +18,6 @@ PKG_SOURCE_URL:=\
 	ftp://ftp.postgresql.org/pub/source/v$(PKG_VERSION)
 
 PKG_HASH:=64fdf23d734afad0dfe4077daca96ac51dcd697e68ae2d3d4ca6c45cb14e21ae
-
 PKG_USE_MIPS16:=0
 PKG_FIXUP:=autoreconf
 PKG_MACRO_PATHS:=config
