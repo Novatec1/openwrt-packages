@@ -7,7 +7,6 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=Werkzeug
 PKG_VERSION:=2.2.2
 PKG_RELEASE:=1
-
 PYPI_NAME:=$(PKG_NAME)
 PKG_HASH:=7ea2d48322cc7c0f8b3a215ed73eabd7b5d75d0b50e31ab006286ccff9e00b8f
 
