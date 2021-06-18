@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=uwsgi
 PKG_VERSION:=2.0.19.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=uWSGI
 PKG_HASH:=faa85e053c0b1be4d5585b0858d3a511d2cd10201802e8676060fd0a109e5869
@@ -68,6 +68,15 @@ define Package/uwsgi-python3-plugin
   MDEPENDS:=uwsgi
 endef
 
+define Package/uwsgi-gevent-plugin
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=The gevent for the uWSGI server
+  DEPENDS:=uwsgi +python3-light +uwsgi-python3-plugin +python3-psycogreen
+  MDEPENDS:=uwsgi
+endef
+
 define Package/uwsgi-luci-support
   SECTION:=net
   CATEGORY:=Network
@@ -111,6 +120,7 @@ define Build/Compile
 	$(call Build/Compile/Default,plugin.logfile PROFILE=openwrt)
 	$(call Build/Compile/Default,plugin.syslog PROFILE=openwrt)
 	$(call Build/Compile/Default,plugin.cgi PROFILE=openwrt)
+	$(call Build/Compile/Default,plugin.gevent PROFILE=openwrt)
 	$(call Python3/Run, \
 		$(PKG_BUILD_DIR), \
 		uwsgiconfig.py --plugin plugins/python openwrt, \
@@ -157,6 +167,11 @@ define Package/uwsgi-python3-plugin/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/python_plugin.so $(1)/usr/lib/uwsgi/
 endef
 
+define Package/uwsgi-gevent-plugin/install
+	$(INSTALL_DIR) $(1)/usr/lib/uwsgi
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/gevent_plugin.so $(1)/usr/lib/uwsgi/
+endef
+
 define Package/uwsgi-luci-support/install
 	$(INSTALL_DIR) $(1)/etc/uwsgi/vassals
 	$(INSTALL_DATA) ./files-luci-support/luci-webui.ini $(1)/etc/uwsgi/vassals/luci-webui.ini
@@ -169,3 +184,5 @@ $(eval $(call BuildPackage,uwsgi-syslog-plugin))
 $(eval $(call BuildPackage,uwsgi-cgi-plugin))
 $(eval $(call BuildPackage,uwsgi-python3-plugin))
 $(eval $(call BuildPackage,uwsgi-luci-support))
+$(eval $(call BuildPackage,uwsgi-gevent-plugin))
+
