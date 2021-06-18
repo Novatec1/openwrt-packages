@@ -78,6 +78,7 @@ define Package/uwsgi-gevent-plugin
   MDEPENDS:=uwsgi
 endef
 
+<<<<<<< HEAD
 define Package/uwsgi-corerouter-plugin
   SECTION:=net
   CATEGORY:=Network
@@ -177,6 +178,8 @@ define Package/uwsgi-router_http-plugin
   MDEPENDS:=uwsgi
 endef
 
+=======
+>>>>>>> Added gevent plugin
 define Package/uwsgi-luci-support
   SECTION:=net
   CATEGORY:=Network
@@ -221,9 +224,12 @@ define Build/Compile
 	$(call Build/Compile/Default,plugin.syslog PROFILE=openwrt)
 	$(call Build/Compile/Default,plugin.cgi PROFILE=openwrt)
 	$(call Build/Compile/Default,plugin.gevent PROFILE=openwrt)
+<<<<<<< HEAD
 	$(call Build/Compile/Default,plugin.corerouter PROFILE=openwrt)
 	$(call Build/Compile/Default,plugin.router_http PROFILE=openwrt)
 	$(call Build/Compile/Default,plugin.http PROFILE=openwrt)
+=======
+>>>>>>> Added gevent plugin
 	$(call Python3/Run, \
 		$(PKG_BUILD_DIR), \
 		uwsgiconfig.py --plugin plugins/python openwrt, \
