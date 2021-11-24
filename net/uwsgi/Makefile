@@ -150,6 +150,33 @@ define Package/uwsgi-gevent-plugin
   MDEPENDS:=uwsgi
 endef
 
+define Package/uwsgi-corerouter-plugin
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=The corerouter for the uWSGI server
+  DEPENDS:=uwsgi +python3-light +uwsgi-python3-plugin
+  MDEPENDS:=uwsgi
+endef
+
+define Package/uwsgi-http-plugin
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=The http for the uWSGI server
+  DEPENDS:=uwsgi +python3-light +uwsgi-python3-plugin +uwsgi-corerouter-plugin
+  MDEPENDS:=uwsgi
+endef
+
+define Package/uwsgi-router_http-plugin
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=The router_http for the uWSGI server
+  DEPENDS:=uwsgi +python3-light +uwsgi-python3-plugin
+  MDEPENDS:=uwsgi
+endef
+
 define Package/uwsgi-luci-support
   SECTION:=net
   CATEGORY:=Network
