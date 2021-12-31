@@ -6,17 +6,20 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=numpy
-PKG_VERSION:=1.20.2
-PKG_RELEASE:=1
+PKG_VERSION:=1.21.4
+PKG_RELEASE:=$(AUTORELEASE)
 
 PYPI_NAME:=$(PKG_NAME)
-PKG_HASH:=878922bf5ad7550aa044aa9301d417e2d3ae50f0f577de92051d739ac6096cee
+PKG_HASH:=e6c76a87633aa3fa16614b61ccedfae45b91df2767cf097aa9c933932a7ed1e0
 
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
 
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.txt
 PKG_CPE_ID:=cpe:/a:numpy:numpy
+
+PKG_CONFIG_DEPENDS:= \
+        CONFIG_NUMPY_OPENBLAS_SUPPORT
 
 # yes, zip... sigh
 PYPI_SOURCE_EXT:=zip
@@ -32,8 +35,48 @@ define Package/python3-numpy
   CATEGORY:=Languages
   TITLE:=The fundamental package for scientific computing with Python
   URL:=https://www.numpy.org/
-  DEPENDS:=@!SOFT_FLOAT +INSTALL_GFORTRAN:libgfortran +python3
+  DEPENDS:=@!SOFT_FLOAT +INSTALL_GFORTRAN:libgfortran +python3 \
+	   +NUMPY_OPENBLAS_SUPPORT:openblas
 endef
+
+# We need to duplicate the omitted arhitectures same as openblas
+define Package/python3-numpy/config
+menu "Configuration"
+depends on !powerpc
+depends on !arc
+
+config NUMPY_OPENBLAS_SUPPORT
+        bool "Enable OpenBLAS support"
+        default n
+
+endmenu
+endef
+
+ifdef CONFIG_NUMPY_OPENBLAS_SUPPORT
+define Build/Prepare/numpy-sitecfg
+	echo "[DEFAULT]"                                 >  $(PKG_BUILD_DIR)/site.cfg
+	echo "library_dirs = $(STAGING_DIR)/usr/lib"     >> $(PKG_BUILD_DIR)/site.cfg
+	echo "include_dirs = $(STAGING_DIR)/usr/include" >> $(PKG_BUILD_DIR)/site.cfg
+	echo                                             >> $(PKG_BUILD_DIR)/site.cfg
+	echo "[openblas]"                                >> $(PKG_BUILD_DIR)/site.cfg
+	echo "libraries = openblas"                      >> $(PKG_BUILD_DIR)/site.cfg
+	echo "runtime_library_dirs = /usr/lib"           >> $(PKG_BUILD_DIR)/site.cfg
+endef
+endif
+
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	$(call Build/Prepare/numpy-sitecfg)
+endef
+
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/lib
+#	$(INSTALL_DIR) $(1)/usr/lib/python3.9
+#	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages $(1)/usr/lib/python3.9
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/numpy/core/lib/*.a $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/numpy/random/lib/*.a $(1)/usr/lib
+endef
+
 
 define Package/python3-numpy/description
 NumPy is the fundamental package for array computing with Python.
@@ -42,6 +85,7 @@ By default, this package is built without some modules.
 For some modules to be available, the INSTALL_GFORTRAN symbol needs
 to be enabled in the OpenWrt core/toolchain.
 endef
+
 
 $(eval $(call Py3Package,python3-numpy))
 $(eval $(call BuildPackage,python3-numpy))
