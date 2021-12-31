@@ -8,7 +8,6 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=numpy
 PKG_VERSION:=1.23.3
 PKG_RELEASE:=$(AUTORELEASE)
-
 PYPI_NAME:=$(PKG_NAME)
 PKG_HASH:=51bf49c0cd1d52be0a240aa66f3458afc4b95d8993d2d04f0d91fa60c10af6cd
 
@@ -21,6 +20,8 @@ PKG_CPE_ID:=cpe:/a:numpy:numpy
 PKG_CONFIG_DEPENDS:= \
         CONFIG_NUMPY_OPENBLAS_SUPPORT
 
+# yes, zip... sigh
+PYPI_SOURCE_EXT:=zip
 HOST_PYTHON3_PACKAGE_BUILD_DEPENDS:=Cython
 
 include ../pypi.mk
@@ -67,6 +68,15 @@ define Build/Prepare
 	$(call Build/Prepare/numpy-sitecfg)
 endef
 
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/lib
+#	$(INSTALL_DIR) $(1)/usr/lib/python3.9
+#	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages $(1)/usr/lib/python3.9
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/numpy/core/lib/*.a $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/numpy/random/lib/*.a $(1)/usr/lib
+endef
+
+
 define Package/python3-numpy/description
 NumPy is the fundamental package for array computing with Python.
 
@@ -74,6 +84,7 @@ By default, this package is built without some modules.
 For some modules to be available, the INSTALL_GFORTRAN symbol needs
 to be enabled in the OpenWrt core/toolchain.
 endef
+
 
 $(eval $(call Py3Package,python3-numpy))
 $(eval $(call BuildPackage,python3-numpy))
