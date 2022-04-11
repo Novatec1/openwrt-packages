@@ -3,7 +3,6 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=uwsgi
 PKG_VERSION:=2.0.20
 PKG_RELEASE:=1
-
 PYPI_NAME:=uwsgi
 PKG_HASH:=88ab9867d8973d8ae84719cf233b7dafc54326fcaec89683c3f9f77c002cdff9
 PKG_BUILD_DEPENDS:=python3/host
@@ -74,10 +73,6 @@ define Package/uwsgi-gevent-plugin
   MDEPENDS:=uwsgi
 endef
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Added http, router_http, and corerouter plugins
 define Package/uwsgi-corerouter-plugin
   SECTION:=net
   CATEGORY:=Network

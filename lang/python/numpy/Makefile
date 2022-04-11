@@ -9,12 +9,7 @@ PKG_NAME:=numpy
 PKG_VERSION:=1.23.3
 PKG_RELEASE:=$(AUTORELEASE)
 PYPI_NAME:=$(PKG_NAME)
-<<<<<<< HEAD
 PKG_HASH:=51bf49c0cd1d52be0a240aa66f3458afc4b95d8993d2d04f0d91fa60c10af6cd
-
-=======
-PKG_HASH:=6a5928bc6241264dce5ed509e66f33676fc97f464e7a919edc672fb5532221ee
->>>>>>> Added items to make scipy and statsmodels compile under openwrt.  See novatec-openwrt-feeds for those make files.
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
 
 PKG_LICENSE:=BSD-3-Clause
