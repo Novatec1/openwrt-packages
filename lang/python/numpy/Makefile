@@ -6,20 +6,10 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=numpy
-<<<<<<< HEAD
-PKG_VERSION:=1.21.4
-PKG_RELEASE:=$(AUTORELEASE)
-
-PYPI_NAME:=$(PKG_NAME)
-PKG_HASH:=e6c76a87633aa3fa16614b61ccedfae45b91df2767cf097aa9c933932a7ed1e0
-
-=======
 PKG_VERSION:=1.21.5
 PKG_RELEASE:=$(AUTORELEASE)
-
 PYPI_NAME:=$(PKG_NAME)
 PKG_HASH:=6a5928bc6241264dce5ed509e66f33676fc97f464e7a919edc672fb5532221ee
->>>>>>> novatec-master-sync
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
 
 PKG_LICENSE:=BSD-3-Clause
@@ -84,13 +74,8 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/lib
 #	$(INSTALL_DIR) $(1)/usr/lib/python3.9
 #	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages $(1)/usr/lib/python3.9
-<<<<<<< HEAD
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/numpy/core/lib/*.a $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/numpy/random/lib/*.a $(1)/usr/lib
-=======
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python$(PYTHON3_VERSION)/site-packages/numpy/core/lib/*.a $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python$(PYTHON3_VERSION)/site-packages/numpy/random/lib/*.a $(1)/usr/lib
->>>>>>> novatec-master-sync
 endef
 
 

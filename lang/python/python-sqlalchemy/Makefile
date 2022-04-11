@@ -8,21 +8,10 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-sqlalchemy
-<<<<<<< HEAD
-PKG_VERSION:=1.4.17
-PKG_RELEASE:=1
-
-PYPI_NAME:=SQLAlchemy
-#PKG_HASH:=0ff100c75cd175f35f4d24375a0b3d82461f5b1af5fc8d112ef0e5ceea8049e6
-PKG_HASH:=skip
-
-=======
 PKG_VERSION:=1.4.22
 PKG_RELEASE:=1
-
 PYPI_NAME:=SQLAlchemy
 PKG_HASH:=ec1be26cdccd60d180359a527d5980d959a26269a2c7b1b327a1eea0cab37ed8
->>>>>>> novatec-master-sync
 PKG_MAINTAINER:=Josef Schlehofer <josef.schlehofer@nic.cz>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE

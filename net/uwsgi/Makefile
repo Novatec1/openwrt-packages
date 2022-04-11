@@ -1,14 +1,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=uwsgi
-<<<<<<< HEAD
-PKG_VERSION:=2.0.19.1
-PKG_RELEASE:=2
-=======
 PKG_VERSION:=2.0.20
 PKG_RELEASE:=1
->>>>>>> novatec-master-sync
-
 PYPI_NAME:=uwsgi
 PKG_HASH:=88ab9867d8973d8ae84719cf233b7dafc54326fcaec89683c3f9f77c002cdff9
 PKG_BUILD_DEPENDS:=python3/host

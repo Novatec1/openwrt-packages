@@ -5,12 +5,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=postgresql
-<<<<<<< HEAD
-#PKG_VERSION:=13.2
-PKG_VERSION:=13.3
-=======
 PKG_VERSION:=14.2
->>>>>>> novatec-master-sync
 PKG_RELEASE:=$(AUTORELEASE)
 PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
 PKG_LICENSE:=PostgreSQL
@@ -21,14 +16,7 @@ PKG_SOURCE_URL:=\
 	https://ftp.postgresql.org/pub/source/v$(PKG_VERSION) \
 	http://ftp.postgresql.org/pub/source/v$(PKG_VERSION) \
 	ftp://ftp.postgresql.org/pub/source/v$(PKG_VERSION)
-
-<<<<<<< HEAD
-#PKG_HASH:=5fd7fcd08db86f5b2aed28fcfaf9ae0aca8e9428561ac547764c2a2b0f41adfc
-PKG_HASH:=skip
-=======
 PKG_HASH:=2cf78b2e468912f8101d695db5340cf313c2e9f68a612fb71427524e8c9a977a
->>>>>>> novatec-master-sync
-
 PKG_USE_MIPS16:=0
 PKG_FIXUP:=autoreconf
 PKG_MACRO_PATHS:=config
