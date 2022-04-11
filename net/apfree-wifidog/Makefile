@@ -21,14 +21,13 @@ PKG_LICENSE:=GPL-3.0-or-later
 PKG_LICENSE_FILES:=COPYING
 
 include $(INCLUDE_DIR)/package.mk
-include ../../devel/ninja/ninja-cmake.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/apfree-wifidog
   SUBMENU:=Captive Portals
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+zlib +iptables-mod-extra +iptables-mod-ipopt +kmod-ipt-nat +iptables-mod-nat-extra \
-           +libjson-c +ipset +libip4tc +libevent2 +libevent2-openssl +libuci +px5g
+  DEPENDS:=+zlib +firewall4 +iptables +libip4tc +libjson-c +libevent2 +libevent2-openssl +libuci +px5g
   TITLE:=Apfree's wireless captive portal solution
   URL:=https://github.com/liudf0716/apfree_wifidog
 endef

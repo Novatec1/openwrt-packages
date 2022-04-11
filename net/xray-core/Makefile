@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xray-core
-PKG_VERSION:=1.4.2
+PKG_VERSION:=1.5.4
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/XTLS/Xray-core/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=565255d8c67b254f403d498b9152fa7bc097d649c50cb318d278c2be644e92cc
+PKG_HASH:=af9b9b5b0a2d4f055d19f3580d1c2d3141bbaab9dd7824428c12ae0ced5f511e
 
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MPL-2.0
@@ -19,7 +19,6 @@ PKG_USE_MIPS16:=0
 
 GO_PKG:=github.com/xtls/xray-core
 GO_PKG_BUILD_PKG:=github.com/xtls/xray-core/main
-GO_PKG_LDFLAGS:=-s -w
 GO_PKG_LDFLAGS_X:= \
 	$(GO_PKG)/core.build=OpenWrt \
 	$(GO_PKG)/core.version=$(PKG_VERSION)
@@ -79,24 +78,24 @@ define Package/xray-core/conffiles
 /etc/config/xray
 endef
 
-GEOIP_VER:=202104010913
+GEOIP_VER:=202203170039
 GEOIP_FILE:=geoip.dat.$(GEOIP_VER)
 
 define Download/geoip
   URL:=https://github.com/v2fly/geoip/releases/download/$(GEOIP_VER)/
   URL_FILE:=geoip.dat
   FILE:=$(GEOIP_FILE)
-  HASH:=f94e464f7f37e6f3c88c2aa5454ab02a4b840bc44c75c5001719a618916906cf
+  HASH:=12c183defbc052e6bd96eb088a7f955f9d3a62d662009d5fb63da040e954e6c8
 endef
 
-GEOSITE_VER:=20210401091829
+GEOSITE_VER:=20220313173740
 GEOSITE_FILE:=dlc.dat.$(GEOSITE_VER)
 
 define Download/geosite
   URL:=https://github.com/v2fly/domain-list-community/releases/download/$(GEOSITE_VER)/
   URL_FILE:=dlc.dat
   FILE:=$(GEOSITE_FILE)
-  HASH:=ee9778dc00b703905ca1f400ad13dd462eae52c5aee6465f0a7543b0232c9d08
+  HASH:=85ae4443a4192c0ff4c759e8a959dac02fac3628be62531939cc9059c3285ad0
 endef
 
 define Build/Prepare
@@ -119,9 +118,6 @@ define Package/xray-core/install
 	$(INSTALL_CONF) $(CURDIR)/files/xray.conf $(1)/etc/config/xray
 	$(INSTALL_DIR) $(1)/etc/init.d/
 	$(INSTALL_BIN) $(CURDIR)/files/xray.init $(1)/etc/init.d/xray
-
-	$(INSTALL_DIR) $(1)/etc/capabilities/
-	$(INSTALL_DATA) $(CURDIR)/files/xray.capabilities $(1)/etc/capabilities/xray.json
 endef
 
 define Package/xray-example/install

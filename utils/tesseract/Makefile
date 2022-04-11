@@ -21,7 +21,7 @@ PKG_LICENSE_FILES:=LICENSE
 CMAKE_BINARY_SUBDIR:=openwrt-build
 
 include $(INCLUDE_DIR)/package.mk
-include ../../devel/ninja/ninja-cmake.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/tesseract
   MENU:=1
@@ -35,6 +35,7 @@ endef
 TARGET_CFLAGS:=$(filter-out -O%,$(TARGET_CFLAGS)) -O3
 
 CMAKE_OPTIONS += \
+	-DAUTO_OPTIMIZE=OFF \
 	-DBUILD_TRAINING_TOOLS=OFF
 
 define Build/InstallDev

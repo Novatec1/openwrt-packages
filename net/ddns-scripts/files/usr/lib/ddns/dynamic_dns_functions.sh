@@ -745,6 +745,13 @@ do_transfer() {
 		# disable proxy if no set (there might be .wgetrc or .curlrc or wrong environment set)
 		[ -z "$proxy" ] && __PROG="$__PROG --no-proxy"
 
+		# user agent string if provided
+		if [ -n "$user_agent" ]; then
+			# replace single and double quotes
+			user_agent=$(echo $user_agent | sed "s/'/ /g" | sed 's/"/ /g')
+			__PROG="$__PROG --user-agent='$user_agent'"
+		fi
+
 		__RUNPROG="$__PROG '$__URL'"	# build final command
 		__PROG="GNU Wget"		# reuse for error logging
 
@@ -758,8 +765,8 @@ do_transfer() {
 		# force network/interface-device to use for communication
 		if [ -n "$bind_network" ]; then
 			local __DEVICE
-			network_get_physdev __DEVICE $bind_network || \
-				write_log 13 "Can not detect local device using 'network_get_physdev $bind_network' - Error: '$?'"
+			network_get_device __DEVICE $bind_network || \
+				write_log 13 "Can not detect local device using 'network_get_device $bind_network' - Error: '$?'"
 			write_log 7 "Force communication via device '$__DEVICE'"
 			__PROG="$__PROG --interface $__DEVICE"
 		fi
