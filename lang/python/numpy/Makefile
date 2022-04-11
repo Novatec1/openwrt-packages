@@ -84,8 +84,8 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/lib
 #	$(INSTALL_DIR) $(1)/usr/lib/python3.9
 #	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages $(1)/usr/lib/python3.9
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/numpy/core/lib/*.a $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/numpy/random/lib/*.a $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python$(PYTHON3_VERSION)/site-packages/numpy/core/lib/*.a $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python$(PYTHON3_VERSION)/site-packages/numpy/random/lib/*.a $(1)/usr/lib
 endef
 
 
