@@ -71,9 +71,9 @@ start_service() {
 	procd_close_instance
 }
 
-boot() {
-	_BOOT=1 start
-}
+#boot() {
+#	_BOOT=1 start
+#}
 
 service_triggers() {
 	config_load "postgresql"
