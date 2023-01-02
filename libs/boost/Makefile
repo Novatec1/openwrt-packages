@@ -376,7 +376,7 @@ define Host/Compile
 
 	( cd $(HOST_BUILD_DIR) ; \
 		./bootstrap.sh --prefix=$(STAGING_DIR_HOSTPKG) \
-			--with-libraries=context,filesystem,program_options,regex,system ;\
+			--with-libraries=context,filesystem,program_options,regex,system,python ;\
 		./b2 --ignore-site-config install )
 endef
 
