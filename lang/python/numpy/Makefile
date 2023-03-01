@@ -20,7 +20,7 @@ PKG_CONFIG_DEPENDS:= \
         CONFIG_NUMPY_OPENBLAS_SUPPORT
 
 # yes, zip... sigh
-PYPI_SOURCE_EXT:=zip
+#PYPI_SOURCE_EXT:=zip
 HOST_PYTHON3_PACKAGE_BUILD_DEPENDS:=Cython
 
 include ../pypi.mk
