@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xray-core
-PKG_VERSION:=1.5.4
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_VERSION:=1.7.5
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/XTLS/Xray-core/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=af9b9b5b0a2d4f055d19f3580d1c2d3141bbaab9dd7824428c12ae0ced5f511e
+PKG_HASH:=a5fc936136a57a463bf9a895d068fdfa895b168ae6093c58a10208e098b6b2d3
 
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MPL-2.0
@@ -45,13 +45,6 @@ define Package/xray-example
   PKGARCH:=all
 endef
 
-define Package/xray-geodata
-  $(call Package/xray/template)
-  TITLE+= (geodata files)
-  DEPENDS:=xray-core
-  PKGARCH:=all
-endef
-
 define Package/xray/description
   Xray, Penetrates Everything. It helps you to build your own computer network.
   It secures your network connections and thus protects your privacy.
@@ -67,43 +60,9 @@ define Package/xray-example/description
   This includes example configuration files for xray-core.
 endef
 
-define Package/xray-geodata/description
-  $(call Package/xray/description)
-
-  This includes GEO datas used for xray-core.
-endef
-
 define Package/xray-core/conffiles
 /etc/xray/
 /etc/config/xray
-endef
-
-GEOIP_VER:=202203170039
-GEOIP_FILE:=geoip.dat.$(GEOIP_VER)
-
-define Download/geoip
-  URL:=https://github.com/v2fly/geoip/releases/download/$(GEOIP_VER)/
-  URL_FILE:=geoip.dat
-  FILE:=$(GEOIP_FILE)
-  HASH:=12c183defbc052e6bd96eb088a7f955f9d3a62d662009d5fb63da040e954e6c8
-endef
-
-GEOSITE_VER:=20220313173740
-GEOSITE_FILE:=dlc.dat.$(GEOSITE_VER)
-
-define Download/geosite
-  URL:=https://github.com/v2fly/domain-list-community/releases/download/$(GEOSITE_VER)/
-  URL_FILE:=dlc.dat
-  FILE:=$(GEOSITE_FILE)
-  HASH:=85ae4443a4192c0ff4c759e8a959dac02fac3628be62531939cc9059c3285ad0
-endef
-
-define Build/Prepare
-	$(call Build/Prepare/Default)
-ifneq ($(CONFIG_PACKAGE_xray-geodata),)
-	$(call Download,geoip)
-	$(call Download,geosite)
-endif
 endef
 
 define Package/xray-core/install
@@ -126,12 +85,5 @@ define Package/xray-example/install
 	$(INSTALL_DATA) $(CURDIR)/files/vpoint_vmess_freedom.json $(1)/etc/xray/
 endef
 
-define Package/xray-geodata/install
-	$(INSTALL_DIR) $(1)/usr/share/xray/
-	$(INSTALL_DATA) $(DL_DIR)/$(GEOIP_FILE) $(1)/usr/share/xray/geoip.dat
-	$(INSTALL_DATA) $(DL_DIR)/$(GEOSITE_FILE) $(1)/usr/share/xray/geosite.dat
-endef
-
 $(eval $(call BuildPackage,xray-core))
 $(eval $(call BuildPackage,xray-example))
-$(eval $(call BuildPackage,xray-geodata))

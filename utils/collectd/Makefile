@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=collectd
 PKG_VERSION:=5.12.0
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_RELEASE:=42
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://collectd.org/files/ \
@@ -528,4 +528,4 @@ $(eval $(call BuildPlugin,write-graphite,Carbon/Graphite output,write_graphite,+
 $(eval $(call BuildPlugin,write-http,HTTP POST output,write_http,+PACKAGE_collectd-mod-write-http:libcurl))
 
 $(eval $(call BuildScriptPlugin,sqm,SQM/qdisc collection,sqm_collectd,+PACKAGE_collectd-mod-sqm:collectd-mod-exec))
-$(eval $(call BuildScriptLuaPlugin,ltq-dsl,Lantiq DSL collection,dsl,@TARGET_lantiq_xrx200 +PACKAGE_collectd-mod-ltq-dsl:collectd-mod-lua +libubus-lua))
+$(eval $(call BuildScriptLuaPlugin,ltq-dsl,Lantiq DSL collection,dsl,ltq-dsl-app +PACKAGE_collectd-mod-ltq-dsl:collectd-mod-lua +libubus-lua))

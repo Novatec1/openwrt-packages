@@ -6,12 +6,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=stress-ng
-PKG_VERSION:=0.13.05
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_VERSION:=0.15.03
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/ColinIanKing/stress-ng/tar.gz/refs/tags/V$(PKG_VERSION)?
-PKG_HASH:=3de49e1100866634f549e99c1644283d0cde817b844a69dcf7f80afa2227d350
+PKG_HASH:=7cceca64da37fd3c8db7167ed386fd7d3e1d9d6891a1f6227911ab8d4b17379c
 
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
 PKG_LICENSE:=GPL-2.0-only
@@ -27,7 +27,7 @@ define Package/stress-ng
   CATEGORY:=Utilities
   TITLE:=stress-ng is a stress test utility
   URL:=https://github.com/ColinIanKing/stress-ng
-  DEPENDS:=+zlib +libbsd +libaio +libsctp +libkmod
+  DEPENDS:=+zlib +libbsd +libaio +libsctp +libkmod +libatomic +libjpeg
 endef
 
 define Package/stress-ng/description

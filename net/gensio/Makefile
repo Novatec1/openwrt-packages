@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gensio
-PKG_VERSION:=2.3.6
+PKG_VERSION:=2.4.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/ser2net
-PKG_HASH:=46118b2aa1664106210d7ee666ae045587c9ec676cb93514677fa4dfa52ae893
+PKG_HASH:=2593c1e7beaec3a0a4acbf60f94bbf64b99883d86f172a3b584eba5f67441b4b
 
 PKG_LICENSE:=GPL-2.0-or-later
 PKG_LICENSE_FILES:=COPYING
@@ -32,6 +32,8 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_GENSIO_GLIB \
 	CONFIG_GENSIO_TCL \
 	CONFIG_GENSIO_SSHD
+
+PKG_BUILD_DEPENDS:=PACKAGE_python3-gensio:swig
 
 include $(INCLUDE_DIR)/package.mk
 include ../../lang/python/python3-package.mk
@@ -130,8 +132,7 @@ $(call Package/gensio/Default)
   TITLE+= (Python3-bindings)
   SECTION:=lang
   CATEGORY:=Languages
-  BUILD_DEPENDS:=+swig +python3
-  DEPENDS:=+python3-light +libgensio
+  DEPENDS:=+PACKAGE_python3-gensio:python3-light +libgensio
 endef
 
 define Package/python3-gensio/description
@@ -146,7 +147,7 @@ $(call Package/gensio/Default)
   SECTION:=libs
   CATEGORY:=Libraries
   ABI_VERSION:=0
-  DEPENDS:=+libgensio +libstdcpp
+  DEPENDS:=+libgensio +PACKAGE_libgensiocpp:libstdcpp
 endef
 
 define Package/libgensiocpp/description
