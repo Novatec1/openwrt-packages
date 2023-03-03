@@ -100,6 +100,7 @@ MAKE_FLAGS += \
 	NUM_THREADS=2 \
 	PREFIX=/usr \
 	COMMON_OPT="" \
+	FC=$(TOOLCHAIN_DIR)/bin/aarch64-openwrt-linux-musl-gfortran \
 	TARGET=$(call qstrip,$(OPENBLAS_TARGET))
 
 ifneq ($(CONFIG_INSTALL_GFORTRAN),y)
