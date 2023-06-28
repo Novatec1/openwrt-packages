@@ -8,16 +8,18 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rrdtool1
-PKG_VERSION:=1.0.50
-PKG_RELEASE:=5
+PKG_VERSION:=1.8.0
+PKG_RELEASE:=1
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/rrdtool-$(PKG_VERSION)
 PKG_SOURCE:=rrdtool-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://oss.oetiker.ch/rrdtool/pub/archive/rrdtool-1.0.x
-PKG_HASH:=42aa7c213dedbd95d33ca84d92f4187880f7e96062c6a3fb05bfb16f77ba2a91
+PKG_SOURCE_URL:=https://github.com//oetiker/rrdtool-1.x/releases/download/v$(PKG_VERSION)/$(PKG_SOURDCE)
+
+PKG_HASH:=bd37614137d7a8dc523359648eb2a81631a34fd91a82ed5581916a52c08433f4
 PKG_MAINTAINER:=Jo-Philipp Wich <jo@mein.io>
 
-PKG_FIXUP:=autoreconf
+#PKG_FIXUP:=autoreconf
+#PKG_FIXUP:=gettext-version
 PKG_CHECK_FORMAT_SECURITY:=0
 
 include $(INCLUDE_DIR)/package.mk
@@ -45,7 +47,13 @@ define Package/librrd1
 $(call Package/rrdtool1/Default)
   SECTION:=libs
   CATEGORY:=Libraries
-  DEPENDS:=+zlib
+  DEPENDS:=+zlib \
+	+libpng \
+	+pango \
+	+libfreetype \
+	+libxml2 \
+	+fontconfig \
+	+pixman 
   TITLE+= management library
 endef
 
@@ -91,7 +99,8 @@ CONFIGURE_ARGS += \
 	--enable-static=yes \
 	--disable-rpath \
 	--with-gnu-ld \
-	--enable-local-zlib
+	--enable-local-zlib \
+	--disable-examples 
 
 CONFIGURE_VARS += \
 	ac_cv_path_PERL=no \
@@ -118,6 +127,7 @@ endef
 define Package/librrd1/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/librrd.so.* $(1)/usr/lib/
+	$(CP) ./files/* $(1)/
 endef
 
 define Build/InstallDev
