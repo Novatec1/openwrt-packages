@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pixman
-PKG_VERSION:=0.40.0
+PKG_VERSION:=0.42.2
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.cairographics.org/releases
-PKG_HASH:=6d200dec3740d9ec4ec8d1180e25779c00bc749f94278c8b9021f5534db223fc
+PKG_HASH:=ea1480efada2fd948bc75366f7c349e1c96d3297d09a3fe62626e38e234a625e
 
 PKG_MAINTAINER:=Yousong Zhou <yszhou4tech@gmail.com>
 PKG_LICENSE:=MIT
