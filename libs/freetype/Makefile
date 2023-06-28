@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freetype
-PKG_VERSION:=2.11.1
+PKG_VERSION:=2.13.1
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@SF/freetype
-PKG_HASH:=3333ae7cfda88429c97a7ae63b7d01ab398076c3b67182e960e5684050f2c5c8
+PKG_HASH:=ea67e3b019b1104d1667aa274f5dc307d8cbd606b399bc32df308a77f1a564bf
 
 PKG_MAINTAINER:=Val Kulkov <val.kulkov@gmail.com>
 PKG_LICENSE:=FTL GPL-2.0-only MIT ZLIB GPL-3.0-or-later
@@ -50,7 +50,7 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include/freetype2
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/freetype2/* $(1)/usr/include/freetype2/
 	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libfreetype.{a,so}* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libfreetype.so* $(1)/usr/lib/
 	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/freetype2.pc $(1)/usr/lib/pkgconfig/freetype2.pc
 endef
