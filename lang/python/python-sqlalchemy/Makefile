@@ -8,10 +8,10 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-sqlalchemy
-PKG_VERSION:=1.4.22
+PKG_VERSION:=2.0.21
+PKG_HASH:=05b971ab1ac2994a14c56b35eaaa91f86ba080e9ad481b20d99d77f381bb6258
 PKG_RELEASE:=1
 PYPI_NAME:=SQLAlchemy
-PKG_HASH:=ec1be26cdccd60d180359a527d5980d959a26269a2c7b1b327a1eea0cab37ed8
 PKG_MAINTAINER:=Josef Schlehofer <josef.schlehofer@nic.cz>
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
@@ -31,7 +31,8 @@ define Package/python3-sqlalchemy
 	+python3-light \
 	+python3-urllib \
 	+python3-decimal \
-	+python3-logging
+	+python3-logging \
+	+python3-typing-extensions
 endef
 
 define Package/python3-sqlalchemy/description
