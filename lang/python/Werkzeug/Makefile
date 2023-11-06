@@ -5,10 +5,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=Werkzeug
-PKG_VERSION:=2.2.2
+PKG_VERSION:=2.3.7
 PKG_RELEASE:=1
-PYPI_NAME:=$(PKG_NAME)
-PKG_HASH:=7ea2d48322cc7c0f8b3a215ed73eabd7b5d75d0b50e31ab006286ccff9e00b8f
+#PYPI_NAME:=$(PKG_NAME)
+PYPI_NAME:=werkzeug
+PKG_HASH:=2b8c0e447b4b9dbcc85dd97b6eeb4dcbaf6c8b6c3be0bd654e25553e0a2157d8
 PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.rst
