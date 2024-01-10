@@ -8,11 +8,24 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-uci
-PKG_VERSION:=0.9.0
+#PKG_VERSION:=0.9.0
+PKG_VERSION:=0.10.0
 PKG_RELEASE:=$(AUTORELEASE)
 
-PYPI_NAME:=pyuci
-PKG_HASH:=865a45d48fb5d363f1230e94fa2c5b01ae6487f02f2180b0a6f78193a70166e2
+PKG_SOURCE_URL=https://gitlab.nic.cz/turris/pyuci
+PKG_MIRROR_HASH:=847b8f365d1b5ff5e241cd0a666dff23098be27021b5aca982a48235dc4aeca2
+PKG_SOURCE_VERSION:=v0.10.0
+PKG_SOURCE_PROTO:=git
+
+#PYPI_NAME:=pyuci
+
+#PKG_SOURCE:=$(PYPI_NAME)-v$(PKG_VERSION).tar.gz
+#PKG_SOURCE_URL:=https://gitlab.nic.cz/turris/pyuic/-/archive/v$(PKG_VERSION)/$(PKG_SOURCE)
+
+#PKG_HASH:=865a45d48fb5d363f1230e94fa2c5b01ae6487f02f2180b0a6f78193a70166e2
+#PKG_HASH:=skip
+PKG_MIRROR_HASH:=847b8f365d1b5ff5e241cd0a666dff23098be27021b5aca982a48235dc4aeca2
+
 
 PKG_MAINTAINER:=Josef Schlehofer <josef.schlehofer@nic.cz>
 PKG_LICENSE:=GPL-3.0-or-later
