@@ -78,9 +78,6 @@ define Build/Prepare
 endef
 
 define Build/InstallDev
-#	$(INSTALL_DIR) $(1)$(PYTHON3_PKG_DIR)
-#	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/* $(STAGING_DIR)/$(PYTHON3_PKG_DIR)
-
 	$(INSTALL_DIR) $(1)/usr/lib
 #	$(INSTALL_DIR) $(1)/usr/lib/python3.9
 #	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages $(1)/usr/lib/python3.9
