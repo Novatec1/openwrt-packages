@@ -78,6 +78,33 @@ define Package/uwsgi-gevent-plugin
   MDEPENDS:=uwsgi
 endef
 
+define Package/uwsgi-corerouter-plugin
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=The corerouter for the uWSGI server
+  DEPENDS:=uwsgi +python3-light +uwsgi-python3-plugin
+  MDEPENDS:=uwsgi
+endef
+
+define Package/uwsgi-http-plugin
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=The http for the uWSGI server
+  DEPENDS:=uwsgi +python3-light +uwsgi-python3-plugin +uwsgi-corerouter-plugin
+  MDEPENDS:=uwsgi
+endef
+
+define Package/uwsgi-router_http-plugin
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=The router_http for the uWSGI server
+  DEPENDS:=uwsgi +python3-light +uwsgi-python3-plugin
+  MDEPENDS:=uwsgi
+endef
+
 define Package/uwsgi-luci-support
   SECTION:=net
   CATEGORY:=Network
@@ -117,21 +144,14 @@ MAKE_VARS+= \
 MAKE_FLAGS+= PROFILE=openwrt
 
 define Build/Compile
-	$(call Build/Compile/Default)
-
-  ifneq ($(CONFIG_PACKAGE_uwsgi-logfile-plugin),)
-	$(call Build/Compile/Default,plugin.logfile)
-  endif
-
-  ifneq ($(CONFIG_PACKAGE_uwsgi-syslog-plugin),)
-	$(call Build/Compile/Default,plugin.syslog)
-  endif
-
-  ifneq ($(CONFIG_PACKAGE_uwsgi-cgi-plugin),)
-	$(call Build/Compile/Default,plugin.cgi)
-  endif
-
-  ifneq ($(CONFIG_PACKAGE_uwsgi-python3-plugin),)
+	$(call Build/Compile/Default,PROFILE=openwrt)
+	$(call Build/Compile/Default,plugin.logfile PROFILE=openwrt)
+	$(call Build/Compile/Default,plugin.syslog PROFILE=openwrt)
+	$(call Build/Compile/Default,plugin.cgi PROFILE=openwrt)
+	$(call Build/Compile/Default,plugin.gevent PROFILE=openwrt)
+	$(call Build/Compile/Default,plugin.corerouter PROFILE=openwrt)
+	$(call Build/Compile/Default,plugin.router_http PROFILE=openwrt)
+	$(call Build/Compile/Default,plugin.http PROFILE=openwrt)
 	$(call Python3/Run, \
 		$(PKG_BUILD_DIR), \
 		uwsgiconfig.py --plugin plugins/python openwrt, \
@@ -183,6 +203,21 @@ define Package/uwsgi-gevent-plugin/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/gevent_plugin.so $(1)/usr/lib/uwsgi/
 endef
 
+define Package/uwsgi-http-plugin/install
+	$(INSTALL_DIR) $(1)/usr/lib/uwsgi
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/http_plugin.so $(1)/usr/lib/uwsgi/
+endef
+
+define Package/uwsgi-corerouter-plugin/install
+	$(INSTALL_DIR) $(1)/usr/lib/uwsgi
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/corerouter_plugin.so $(1)/usr/lib/uwsgi/
+endef
+
+define Package/uwsgi-router_http-plugin/install
+	$(INSTALL_DIR) $(1)/usr/lib/uwsgi
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/router_http_plugin.so $(1)/usr/lib/uwsgi/
+endef
+
 define Package/uwsgi-luci-support/install
 	$(INSTALL_DIR) $(1)/etc/uwsgi/vassals
 	$(INSTALL_DATA) ./files-luci-support/luci-webui.ini $(1)/etc/uwsgi/vassals/luci-webui.ini
@@ -196,4 +231,7 @@ $(eval $(call BuildPackage,uwsgi-cgi-plugin))
 $(eval $(call BuildPackage,uwsgi-python3-plugin))
 $(eval $(call BuildPackage,uwsgi-luci-support))
 $(eval $(call BuildPackage,uwsgi-gevent-plugin))
+$(eval $(call BuildPackage,uwsgi-corerouter-plugin))
+$(eval $(call BuildPackage,uwsgi-http-plugin))
+$(eval $(call BuildPackage,uwsgi-router_http-plugin))
 
