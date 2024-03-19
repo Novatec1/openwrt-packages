@@ -4,14 +4,13 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=python-werkzeug
-PKG_VERSION:=2.3.6
+PKG_NAME:=Werkzeug
+PKG_VERSION:=2.3.7
 PKG_RELEASE:=1
-
-PYPI_NAME:=Werkzeug
-PKG_HASH:=98c774df2f91b05550078891dee5f0eb0cb797a522c757a2452b9cee5b202330
-
-PKG_MAINTAINER:=Jeffery To <jeffery.to@gmail.com>
+#PYPI_NAME:=$(PKG_NAME)
+PYPI_NAME:=werkzeug
+PKG_HASH:=2b8c0e447b4b9dbcc85dd97b6eeb4dcbaf6c8b6c3be0bd654e25553e0a2157d8
+PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.rst
 PKG_CPE_ID:=cpe:/a:palletsprojects:werkzeug
