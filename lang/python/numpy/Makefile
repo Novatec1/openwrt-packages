@@ -64,7 +64,6 @@ define Build/Prepare/numpy-sitecfg
 	echo "[DEFAULT]"                                 >  $(PKG_BUILD_DIR)/site.cfg
 	echo "library_dirs = $(STAGING_DIR)/usr/lib"     >> $(PKG_BUILD_DIR)/site.cfg
 	echo "include_dirs = $(STAGING_DIR)/usr/include" >> $(PKG_BUILD_DIR)/site.cfg
-
   ifdef CONFIG_NUMPY_OPENBLAS_SUPPORT
 	echo                                             >> $(PKG_BUILD_DIR)/site.cfg
 	echo "[openblas]"                                >> $(PKG_BUILD_DIR)/site.cfg
@@ -78,6 +77,15 @@ define Build/Prepare
 	$(call Build/Prepare/numpy-sitecfg)
 endef
 
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/lib
+#	$(INSTALL_DIR) $(1)/usr/lib/python3.9
+#	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages $(1)/usr/lib/python3.9
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/numpy/core/lib/*.a $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/numpy/random/lib/*.a $(1)/usr/lib
+endef
+
+
 define Package/python3-numpy/description
 NumPy is the fundamental package for array computing with Python.
 
@@ -85,6 +93,7 @@ By default, this package is built without some modules.
 For some modules to be available, the INSTALL_GFORTRAN symbol needs
 to be enabled in the OpenWrt core/toolchain.
 endef
+
 
 $(eval $(call Py3Package,python3-numpy))
 $(eval $(call BuildPackage,python3-numpy))
