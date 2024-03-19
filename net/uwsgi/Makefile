@@ -69,6 +69,15 @@ define Package/uwsgi-python3-plugin
   DEPENDS:=uwsgi +python3-light
 endef
 
+define Package/uwsgi-gevent-plugin
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=The gevent for the uWSGI server
+  DEPENDS:=uwsgi +python3-light +uwsgi-python3-plugin +python3-psycogreen
+  MDEPENDS:=uwsgi
+endef
+
 define Package/uwsgi-luci-support
   SECTION:=net
   CATEGORY:=Network
@@ -169,6 +178,11 @@ define Package/uwsgi-python3-plugin/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/python_plugin.so $(1)/usr/lib/uwsgi/
 endef
 
+define Package/uwsgi-gevent-plugin/install
+	$(INSTALL_DIR) $(1)/usr/lib/uwsgi
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/gevent_plugin.so $(1)/usr/lib/uwsgi/
+endef
+
 define Package/uwsgi-luci-support/install
 	$(INSTALL_DIR) $(1)/etc/uwsgi/vassals
 	$(INSTALL_DATA) ./files-luci-support/luci-webui.ini $(1)/etc/uwsgi/vassals/luci-webui.ini
@@ -181,3 +195,5 @@ $(eval $(call BuildPackage,uwsgi-syslog-plugin))
 $(eval $(call BuildPackage,uwsgi-cgi-plugin))
 $(eval $(call BuildPackage,uwsgi-python3-plugin))
 $(eval $(call BuildPackage,uwsgi-luci-support))
+$(eval $(call BuildPackage,uwsgi-gevent-plugin))
+
