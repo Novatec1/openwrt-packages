@@ -7,7 +7,6 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=MarkupSafe
 PKG_VERSION:=2.1.1
 PKG_RELEASE:=$(AUTORELEASE)
-
 PYPI_NAME:=$(PKG_NAME)
 PKG_HASH:=7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b
 PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
