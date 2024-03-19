@@ -141,6 +141,15 @@ define Package/uwsgi-router_http-plugin
   MDEPENDS:=uwsgi
 endef
 
+define Package/uwsgi-gevent-plugin
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=The gevent for the uWSGI server
+  DEPENDS:=uwsgi +python3-light +uwsgi-python3-plugin +python3-psycogreen
+  MDEPENDS:=uwsgi
+endef
+
 define Package/uwsgi-luci-support
   SECTION:=net
   CATEGORY:=Network
