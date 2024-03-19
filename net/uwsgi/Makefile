@@ -78,10 +78,6 @@ define Package/uwsgi-gevent-plugin
   MDEPENDS:=uwsgi
 endef
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Added http, router_http, and corerouter plugins
 define Package/uwsgi-corerouter-plugin
   SECTION:=net
   CATEGORY:=Network
