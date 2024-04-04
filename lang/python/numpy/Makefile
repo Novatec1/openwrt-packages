@@ -22,6 +22,7 @@ PKG_CONFIG_DEPENDS:= \
         CONFIG_NUMPY_OPENBLAS_SUPPORT
 
 PKG_BUILD_DEPENDS:=python-cython/host pyproject-metadata/host
+HOST_BUILD_DEPENDS:=openblas/host
 
 # Ensure numpy does not find openblas if openblas support is not enabled
 PYTHON3_PKG_BUILD_VARS:= \
@@ -29,7 +30,11 @@ PYTHON3_PKG_BUILD_VARS:= \
 
 include ../pypi.mk
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
 include ../python3-package.mk
+include ../python3-host-build.mk
+
+
 
 define Package/python3-numpy
   SUBMENU:=Python
@@ -77,15 +82,38 @@ define Build/Prepare
 	$(call Build/Prepare/numpy-sitecfg)
 endef
 
-define Build/InstallDev
-#	$(INSTALL_DIR) $(1)$(PYTHON3_PKG_DIR)
-#	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/* $(STAGING_DIR)/$(PYTHON3_PKG_DIR)
-	$(INSTALL_DIR) $(1)/usr/lib
-#	$(INSTALL_DIR) $(1)/usr/lib/python3.9
-#	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages $(1)/usr/lib/python3.9
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python$(PYTHON3_VERSION)/site-packages/numpy/core/lib/*.a $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python$(PYTHON3_VERSION)/site-packages/numpy/random/lib/*.a $(1)/usr/lib
+define Build/Prepare/host-numpy-sitecfg
+	echo "[DEFAULT]"                                 >  $(HOST_BUILD_DIR)/site.cfg
+	echo "library_dirs = $(STAGING_DIR_HOSTPKG)/lib"     >> $(HOST_BUILD_DIR)/site.cfg
+	echo "include_dirs = $(STAGING_DIR_HOSTPKG)/include" >> $(HOST_BUILD_DIR)/site.cfg
+  ifdef CONFIG_NUMPY_OPENBLAS_SUPPORT
+	echo                                             >> $(HOST_BUILD_DIR)/site.cfg
+	echo "[openblas]"                                >> $(HOST_BUILD_DIR)/site.cfg
+	echo "libraries = openblas"                      >> $(HOST_BUILD_DIR)/site.cfg
+	echo "runtime_library_dirs = $(STAGING_DIR_HOSTPKG)/lib"           >> $(HOST_BUILD_DIR)/site.cfg
+  endif
 endef
+
+define Host/Configure
+	$(call Host/Configure/Default)
+	$(call Build/Prepare/host-numpy-sitecfg)
+endef
+
+#define Build/InstallDev
+##	$(INSTALL_DIR) $(1)$(PYTHON3_PKG_DIR)
+##	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages/* $(STAGING_DIR)/$(PYTHON3_PKG_DIR)
+#	$(INSTALL_DIR) $(1)/usr/lib
+#	$(INSTALL_DIR) $(1)/usr/lib$(PYTHNON3_VERSION)
+##	$(INSTALL_DIR) $(1)/usr/lib/python3.9
+##	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python3.9/site-packages $(1)/usr/lib/python3.9
+#
+##	My Original hack
+##	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python$(PYTHON3_VERSION)/site-packages/numpy/core/lib/*.a $(1)/usr/lib
+##	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python$(PYTHON3_VERSION)/site-packages/numpy/random/lib/*.a $(1)/usr/lib
+##
+##	New hack
+#	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python$(PYTHON3_VERSION)/site-packages $(1)/usr/lib/python$(PYTHON3_VERSION)
+#endef
 
 
 define Package/python3-numpy/description
@@ -100,3 +128,4 @@ endef
 $(eval $(call Py3Package,python3-numpy))
 $(eval $(call BuildPackage,python3-numpy))
 $(eval $(call BuildPackage,python3-numpy-src))
+$(eval $(call HostBuild))
