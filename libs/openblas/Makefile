@@ -19,6 +19,7 @@ PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
 
 define Package/openblas
   SECTION:=libs
@@ -103,6 +104,8 @@ MAKE_FLAGS += \
 	FC=$(TOOLCHAIN_DIR)/bin/aarch64-openwrt-linux-musl-gfortran \
 	TARGET=$(call qstrip,$(OPENBLAS_TARGET))
 
+HOST_MAKE_FLAGS += "PREFIX=$(STAGING_DIR_HOSTPKG)"
+
 ifneq ($(CONFIG_INSTALL_GFORTRAN),y)
 MAKE_FLAGS += NOFORTRAN=1
 endif
@@ -121,3 +124,4 @@ define Package/openblas/install
 endef
 
 $(eval $(call BuildPackage,openblas))
+$(eval $(call HostBuild))
