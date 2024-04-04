@@ -230,7 +230,6 @@ define Build/Compile
 		$(MAKE_VARS) \
 		CFLAGS="$(TARGET_CPPFLAGS) -I$(PYTHON3_INC_DIR) $(TARGET_CFLAGS)" \
 	)
-  endif
 endef
 
 define Package/uwsgi/install
