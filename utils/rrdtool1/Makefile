@@ -49,7 +49,7 @@ $(call Package/rrdtool1/Default)
   CATEGORY:=Libraries
   DEPENDS:=+zlib \
 	+libpng \
-	+pango \
+	+libpango \
 	+libfreetype \
 	+libxml2 \
 	+fontconfig \
