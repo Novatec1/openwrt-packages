@@ -1,1 +1,0 @@
-beniget==0.4.0 --hash=sha256:72bbd47b1ae93690f5fb2ad3902ce1ae61dcd868ce6cfbf33e9bad71f9ed8749
