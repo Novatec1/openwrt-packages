@@ -7,11 +7,11 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_VERSION:=2.0.23
+PKG_VERSION:=2.0.31
 PKG_RELEASE:=1
 
 PYPI_NAME:=SQLAlchemy
-PKG_HASH:=c1bda93cbbe4aa2aa0aa8655c5aeda505cd219ff3e8da91d1d329e143e4aff69
+PKG_HASH:=b607489dd4a54de56984a0c7656247504bd5523d9d0ba799aef59d4add009484
 
 PKG_MAINTAINER:=Josef Schlehofer <pepe.schlehofer@gmail.com>
 PKG_LICENSE:=MIT
