@@ -63,10 +63,17 @@ upnpd() {
 	local use_stun stun_host stun_port uuid notify_interval presentation_url
 	local upnp_lease_file clean_ruleset_threshold clean_ruleset_interval
 	local ipv6_disable
+	local manufacturer_name model_name friendly_name manufacturer_url model_url
 
 	local enabled
 	config_get_bool enabled config enabled 1
 	[ "$enabled" -eq 0 ] && return 1
+
+	config_get manufacturer_name config manufacturer_name
+	config_get manufacturer_url config manufacturer_url
+	config_get friendly_name config friendly_name
+	config_get model_name config model_name 
+	config_get model_url config model_url
 
 	config_get external_iface config external_iface
 	config_get external_iface6 config external_iface6
@@ -90,6 +97,8 @@ upnpd() {
 	config_get clean_ruleset_threshold config clean_ruleset_threshold
 	config_get clean_ruleset_interval config clean_ruleset_interval
 	config_get ipv6_disable config ipv6_disable 0
+
+
 
 	local conf ifname ifname6
 
@@ -180,6 +189,13 @@ upnpd() {
 			echo "upnp_nat_chain=upnp_prerouting"
 			echo "upnp_nat_postrouting_chain=upnp_postrouting"
 		fi
+		network_get_ipaddr lanaddr lan
+		[ -n "$manufacturer_name" ] && echo "manufacturer_name=$manufacturer_name"
+		[ -n "$manufacturer_url" ] && echo "manufacturer_url=$manufacturer_url"
+		[ -n "$friendly_name" ] && echo "friendly_name=$friendly_name"
+		[ -n "$model_name" ] && echo "model_name=$model_name"
+		[ -n "$model_url" ] && echo "model_url=$model_url"
+		[ -n "$lanaddr" ] && echo "presentation_url=https://$lanaddr/"
 
 		} > "$tmpconf"
 	fi
